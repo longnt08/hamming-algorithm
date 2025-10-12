@@ -35,7 +35,7 @@ def check_encoded_hamming(encoded_text: str) -> int:
 def fix_encoded_hamming(err_code: str, err_bit_index: int) -> str:
     err_code.strip()
 
-    if not is_binary_string(encoded_text):
+    if not is_binary_string(err_code):
         return "Mã phải là chuỗi nhị phân. Vui lòng thử lại"
 
     err_code = err_code + '5'

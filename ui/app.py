@@ -6,7 +6,8 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt, QSize
 from PySide6.QtGui import QFont
 from algorithm.encode import encode_hamming
-from algorithm.check_and_fix_encoded import check_encoded_hamming
+from algorithm.check_and_fix import check_encoded_hamming, fix_encoded_hamming
+from algorithm.decode import decode_hamming
 
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -67,6 +68,9 @@ class HammingEncryptionApp(QMainWindow):
         self.check_result_label = self.create_result_label()
         main_layout.addWidget(self.check_result_label)
 
+        self.decode_result_label = self.create_result_label()
+        main_layout.addWidget(self.decode_result_label)
+
         main_layout.addStretch()
 
     def create_styled_line_edit(self, placeholder_text):
@@ -126,7 +130,10 @@ class HammingEncryptionApp(QMainWindow):
             self.encrypt_result_label.setStyleSheet("color: red; padding: 5px 10px")
         else:
             encrypted_result = encode_hamming(plain_text=input_text)
-            self.encrypt_result_label.setStyleSheet("color: #0056b3; padding: 5px 10px;")
+            if encrypted_result.isnumeric():
+                self.encrypt_result_label.setStyleSheet("color: #0056b3; padding: 5px 10px;")
+            else:
+                self.encrypt_result_label.setStyleSheet("color: red; padding: 5px 10px;")
 
         self.encrypt_result_label.setText(f"Result: {encrypted_result}")
         self.encrypt_result_label.show()
@@ -144,14 +151,24 @@ class HammingEncryptionApp(QMainWindow):
             content_result = "Encoded text must be binary!"
             self.check_result_label.setStyleSheet("color: red; padding: 5px 10px;")
         elif check_result != 0:
-            content_result = f"The {check_result}th bit is error."
+            content_result = f"{check_result}th bit is faulty."
             self.check_result_label.setStyleSheet("color: red; padding: 5px 10px;")
+
+            fixed_code = fix_encoded_hamming(err_code=input_text, err_bit_index=check_result)
+            decoded_text = decode_hamming(correct_encoded_text=fixed_code)
+            decode_result = f"Decoded data after error correction: {decoded_text}"
         else:
             content_result = "Encoded text is corrected."
             self.check_result_label.setStyleSheet("color: green; padding: 5px 10px;")
+
+            decoded_text = decode_hamming(correct_encoded_text=input_text)
+            decode_result = f"Decoded data: {decoded_text}"
         
         self.check_result_label.setText(f"Result: {content_result}")
         self.check_result_label.show()
+
+        self.decode_result_label.setText(decode_result)
+        self.decode_result_label.show()
     
 if __name__ == '__main__':
     app = QApplication(sys.argv)

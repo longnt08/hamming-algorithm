@@ -5,3 +5,5 @@ algorithm/__pycache__/__init__.cpython-312.pyc
 algorithm/__pycache__/encode.cpython-312.pyc
 ui/__pycache__/__init__.cpython-312.pyc
 algorithm/__pycache__/check_and_fix_encoded.cpython-312.pyc
+algorithm/__pycache__/check_and_fix.cpython-312.pyc
+algorithm/__pycache__/decode.cpython-312.pyc
