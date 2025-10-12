@@ -1,2 +1,7 @@
 .venv
 algorithm/__pycache__/utils.cpython-312.pyc
+ui/__pycache__/app.cpython-312.pyc
+algorithm/__pycache__/__init__.cpython-312.pyc
+algorithm/__pycache__/encode.cpython-312.pyc
+ui/__pycache__/__init__.cpython-312.pyc
+algorithm/__pycache__/check_and_fix_encoded.cpython-312.pyc

@@ -1,4 +1,4 @@
-from utils import *
+from .utils import *
 
 def encode_hamming(plain_text: str) -> str:
     plain_text = plain_text.strip()

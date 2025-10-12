@@ -1,4 +1,4 @@
-from utils import *
+from .utils import *
 
 def check_encoded_hamming(encoded_text: str) -> int:
     encoded_text.strip()
