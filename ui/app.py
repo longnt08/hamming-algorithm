@@ -142,28 +142,28 @@ class HammingEncryptionApp(QMainWindow):
         input_text = self.check_input.text()
 
         if not input_text:
-            check_result = "ERROR: No input text."
+            check_result = "ERROR: Chưa nhập dữ liệu."
             self.check_result_label.setStyleSheet("color: red; padding: 5px 10px;")
         else:
             check_result = check_encoded_hamming(encoded_text=input_text)
         
         if check_result == -1:
-            content_result = "Encoded text must be binary!"
+            content_result = "Chuỗi mã hóa phải là nhị phân!"
             self.check_result_label.setStyleSheet("color: red; padding: 5px 10px;")
         elif check_result != 0:
-            content_result = f"{check_result}th bit is faulty."
+            content_result = f"Bit thứ {check_result} bị lỗi."
             self.check_result_label.setStyleSheet("color: red; padding: 5px 10px;")
 
             fixed_code = fix_encoded_hamming(err_code=input_text, err_bit_index=check_result)
             decoded_text = decode_hamming(correct_encoded_text=fixed_code)
-            decode_result = f"Decoded data after error correction: {decoded_text}"
+            decode_result = f"Kết quả giải mã sau khi sửa: {decoded_text}"
         else:
-            content_result = "Encoded text is corrected."
+            content_result = "Chuỗi mã hóa đúng."
             self.check_result_label.setStyleSheet("color: green; padding: 5px 10px;")
 
             decoded_text = decode_hamming(correct_encoded_text=input_text)
-            decode_result = f"Decoded data: {decoded_text}"
-        
+            decode_result = f"Chuỗi đã được giải mã: {decoded_text}"
+
         self.check_result_label.setText(f"Result: {content_result}")
         self.check_result_label.show()
 
